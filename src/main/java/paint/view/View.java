@@ -85,8 +85,6 @@ public class View {
 
         JPanel panel = new JPanel();
         panel.setBackground(Color.WHITE);
-        panel.add(saveButton);
-        panel.add(clearButton);
 
         frame.setJMenuBar(createMenu());
         frame.add(panel);
