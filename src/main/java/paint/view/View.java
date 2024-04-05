@@ -1,13 +1,18 @@
 package paint.view;
 
+import paint.draw.CreateJMenuBar;
+import paint.draw.DrawingPanel;
+
 import javax.swing.*;
 import java.awt.*;
 
-public class View {
+public class View extends JFrame {
 
     private Image image;
     private Image change;
     private ImageIcon imageIcon;
+    private DrawingPanel drawingPanel = new DrawingPanel();
+    private CreateJMenuBar createMenuBar = new CreateJMenuBar();
 
     public View() {
         showPaintView();
@@ -16,10 +21,6 @@ public class View {
     private void showPaintView() {
         JFrame frame = new JFrame("그림판");
         frame.setSize(900, 700);
-        frame.setLayout(null);
-
-        //버튼
-        //저장 지우개 텍스트추가 선색상 선굵기
 
         //저장 아이콘 1
         JButton saveButton = new JButton();
@@ -27,7 +28,7 @@ public class View {
 
         ImageIcon save = new ImageIcon("src/images/saveIcon.png");
         image = save.getImage();
-        change = image.getScaledInstance(20, 20, Image.SCALE_SMOOTH);
+        change = image.getScaledInstance(25, 25, Image.SCALE_SMOOTH);
         imageIcon = new ImageIcon(change);
 
         saveButton.setIcon(imageIcon);
@@ -39,7 +40,7 @@ public class View {
 
         ImageIcon clear = new ImageIcon("src/images/clearIcon.png");
         image = clear.getImage();
-        change = image.getScaledInstance(20, 20, Image.SCALE_SMOOTH);
+        change = image.getScaledInstance(25, 25, Image.SCALE_SMOOTH);
         imageIcon = new ImageIcon(change);
 
         clearButton.setIcon(imageIcon);
@@ -51,7 +52,7 @@ public class View {
 
         ImageIcon text = new ImageIcon("src/images/textIcon.png");
         image = text.getImage();
-        change = image.getScaledInstance(20, 20, Image.SCALE_SMOOTH);
+        change = image.getScaledInstance(25, 25, Image.SCALE_SMOOTH);
         imageIcon = new ImageIcon(change);
 
         textButton.setIcon(imageIcon);
@@ -75,36 +76,30 @@ public class View {
 
         ImageIcon thickness = new ImageIcon("src/images/boldIcon.png");
         image = thickness.getImage();
-        change = image.getScaledInstance(20, 20, Image.SCALE_SMOOTH);
+        change = image.getScaledInstance(25, 25, Image.SCALE_SMOOTH);
         imageIcon = new ImageIcon(change);
 
         thicknessButton.setIcon(imageIcon);
         frame.add(thicknessButton);
 
+        drawingPanel.add(saveButton);
+        drawingPanel.add(clearButton);
+        drawingPanel.add(textButton);
+        drawingPanel.add(thicknessButton);
+        drawingPanel.add(colorButton);
 
+        drawingPanel.setBackground(Color.WHITE);
 
-        JPanel panel = new JPanel();
-        panel.setBackground(Color.WHITE);
+        //프레임에 panel 추가
+        frame.setContentPane(drawingPanel);
 
-        frame.setJMenuBar(createMenu());
-        frame.add(panel);
+        //프레임에 메뉴바 추가
+        frame.setJMenuBar(createMenuBar.createMenuBar());
+
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setLocationRelativeTo(null); //가운데로 창 보여주기
         frame.setVisible(true);
 
-    }
-
-    private JMenuBar createMenu() {
-        JMenuBar jMenuBar = new JMenuBar();
-        JMenu jMenu = new JMenu("파일");
-        JMenuItem save = new JMenuItem("저장");
-        JMenuItem load = new JMenuItem("열기");
-
-        jMenu.add(save);
-        jMenu.add(load);
-        jMenuBar.add(jMenu);
-        jMenuBar.add(jMenu);
-        return jMenuBar;
     }
 
 
