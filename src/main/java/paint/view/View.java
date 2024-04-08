@@ -5,6 +5,8 @@ import paint.draw.DrawingPanel;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 public class View extends JFrame {
 
@@ -16,6 +18,7 @@ public class View extends JFrame {
 
     public View() {
         showPaintView();
+
     }
 
     private void showPaintView() {
@@ -32,6 +35,8 @@ public class View extends JFrame {
         imageIcon = new ImageIcon(change);
 
         saveButton.setIcon(imageIcon);
+        //saveButton.setBorderPainted(false);
+        //saveButton.setFocusPainted(false);
         frame.add(saveButton);
 
         //지우개 아이콘 2
@@ -45,6 +50,14 @@ public class View extends JFrame {
 
         clearButton.setIcon(imageIcon);
         frame.add(clearButton);
+
+        clearButton.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                super.mouseClicked(e);
+                drawingPanel.clearLines();
+            }
+        });
 
         //텍스트추가 아이콘 3
         JButton textButton = new JButton();
@@ -90,7 +103,7 @@ public class View extends JFrame {
 
         drawingPanel.setBackground(Color.WHITE);
 
-        //프레임에 panel 추가
+        //프레임에 선긋기 panel 추가
         frame.setContentPane(drawingPanel);
 
         //프레임에 메뉴바 추가
@@ -101,6 +114,5 @@ public class View extends JFrame {
         frame.setVisible(true);
 
     }
-
 
 }
