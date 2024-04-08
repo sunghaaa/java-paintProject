@@ -12,6 +12,7 @@ public class DrawingPanel extends JPanel {
     public Graphics2D graphics2D;
 
     private Vector<Point> lines = new Vector<Point>();
+    private Color currentColor;
 
     public DrawingPanel() {
 
@@ -29,7 +30,6 @@ public class DrawingPanel extends JPanel {
                 lines.add(null);
                 lines.add(e.getPoint());
             }
-
         });
 
     }
@@ -41,21 +41,34 @@ public class DrawingPanel extends JPanel {
 
         for (int i = 1; i < lines.size(); i++) {
 
-            if (lines.get(i - 1) == null)
+            if (lines.get(i - 1) == null) {
                 continue;
-            else if (lines.get(i) == null)
+            } else if (lines.get(i) == null) {
                 continue;
-            else
+            } else {
                 g.drawLine((int) lines.get(i - 1).getX(), (int) lines.get(i - 1).getY(),
                         (int) lines.get(i).getX(), (int) lines.get(i).getY());
+                g.setColor(getCurrentColor());
+            }
 
         }
     }
 
-
     public void clearLines() {
         lines.clear();
         repaint();
+        setCurrentColor(null);
     }
 
+    public void setCurrentColor(Color currentColor) {
+        if (currentColor == null) {
+            this.currentColor = Color.BLACK;
+        } else {
+            this.currentColor = currentColor;
+        }
+    }
+
+    private Color getCurrentColor() {
+        return currentColor;
+    }
 }

@@ -37,7 +37,6 @@ public class View extends JFrame {
         saveButton.setIcon(imageIcon);
         //saveButton.setBorderPainted(false);
         //saveButton.setFocusPainted(false);
-        frame.add(saveButton);
 
         //지우개 아이콘 2
         JButton clearButton = new JButton();
@@ -49,7 +48,6 @@ public class View extends JFrame {
         imageIcon = new ImageIcon(change);
 
         clearButton.setIcon(imageIcon);
-        frame.add(clearButton);
 
         clearButton.addMouseListener(new MouseAdapter() {
             @Override
@@ -69,7 +67,6 @@ public class View extends JFrame {
         imageIcon = new ImageIcon(change);
 
         textButton.setIcon(imageIcon);
-        frame.add(textButton);
 
         //선색상 아이콘 4
         JButton colorButton = new JButton();
@@ -81,7 +78,6 @@ public class View extends JFrame {
         imageIcon = new ImageIcon(change);
 
         colorButton.setIcon(imageIcon);
-        frame.add(colorButton);
 
         //선굵기 아이콘 5
         JButton thicknessButton = new JButton();
@@ -93,13 +89,39 @@ public class View extends JFrame {
         imageIcon = new ImageIcon(change);
 
         thicknessButton.setIcon(imageIcon);
-        frame.add(thicknessButton);
+
+        //선 색상 변경 버튼
+        JButton red = new JButton("red");
+        red.setBounds(250, 10, 50, 50);
+
+        red.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                super.mouseClicked(e);
+                drawingPanel.setCurrentColor(Color.RED);
+            }
+        });
+
+        JButton orange = new JButton("orange");
+        orange.setBounds(290, 10, 100, 100);
+
+        orange.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                super.mouseClicked(e);
+                drawingPanel.setCurrentColor(Color.ORANGE);
+            }
+        });
 
         drawingPanel.add(saveButton);
         drawingPanel.add(clearButton);
         drawingPanel.add(textButton);
         drawingPanel.add(thicknessButton);
         drawingPanel.add(colorButton);
+
+        //선 색상 변경 버튼
+        drawingPanel.add(red);
+        drawingPanel.add(orange);
 
         drawingPanel.setBackground(Color.WHITE);
 
@@ -114,5 +136,4 @@ public class View extends JFrame {
         frame.setVisible(true);
 
     }
-
 }
