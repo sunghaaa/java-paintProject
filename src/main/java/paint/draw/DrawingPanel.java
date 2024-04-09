@@ -4,15 +4,21 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 
+import java.util.ArrayList;
 import java.util.Vector;
 
-public class DrawingPanel extends JPanel {
+public class DrawingPanel extends JPanel{
     private Vector<Point> startPoint = new Vector<>();
     private Vector<Point> endPoint = new Vector<>();
-    public Graphics2D graphics2D;
-
-    private Vector<Point> lines = new Vector<Point>();
+    //private Vector<Point> lines = new Vector<Point>();
     private Color currentColor;
+    private Color previousColor;
+    private ArrayList<Point> lines = new ArrayList<>();
+
+    public int defaultStroke = 1;
+
+    private ArrayList<DrawingLine> drawingLines;
+
 
     public DrawingPanel() {
 
@@ -34,6 +40,7 @@ public class DrawingPanel extends JPanel {
 
     }
 
+
     @Override
     protected void paintComponent(Graphics g) {
 
@@ -46,11 +53,14 @@ public class DrawingPanel extends JPanel {
             } else if (lines.get(i) == null) {
                 continue;
             } else {
+                g.setColor(getPreviousColor());
+
                 g.drawLine((int) lines.get(i - 1).getX(), (int) lines.get(i - 1).getY(),
                         (int) lines.get(i).getX(), (int) lines.get(i).getY());
-                g.setColor(getCurrentColor());
-            }
 
+                g.setColor(getCurrentColor());
+
+            }
         }
     }
 
@@ -58,9 +68,13 @@ public class DrawingPanel extends JPanel {
         lines.clear();
         repaint();
         setCurrentColor(null);
+        setCurrentStroke(defaultStroke);
     }
 
     public void setCurrentColor(Color currentColor) {
+
+        previousColor = currentColor;
+
         if (currentColor == null) {
             this.currentColor = Color.BLACK;
         } else {
@@ -71,4 +85,15 @@ public class DrawingPanel extends JPanel {
     private Color getCurrentColor() {
         return currentColor;
     }
+
+    private Color getPreviousColor() {
+        return previousColor;
+    }
+
+    public void setCurrentStroke(int currentStroke) {
+
+        this.defaultStroke = currentStroke;
+
+    }
+
 }
