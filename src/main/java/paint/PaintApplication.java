@@ -1,9 +1,9 @@
 package paint;
 
-import paint.view.View;
+import paint.view.PaintAppView;
 
 public class PaintApplication {
     public static void main(String[] args) {
-        new View();
+        new PaintAppView();
     }
 }
