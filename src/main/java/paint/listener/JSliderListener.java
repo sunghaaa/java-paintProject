@@ -11,16 +11,15 @@ public class JSliderListener implements ChangeListener {
     private PaintCanvas paintCanvas;
 
     public JSliderListener(PaintCanvas paintCanvas) {
-        super();
         this.paintCanvas = paintCanvas;
     }
 
     @Override
     public void stateChanged(ChangeEvent e) {
         JSlider source = (JSlider) e.getSource();
-        int value = (int) source.getValue();
+        int thickness = source.getValue();
 
-        paintCanvas.setStroke(value);
+        this.paintCanvas.setStroke(thickness);
     }
 
 }

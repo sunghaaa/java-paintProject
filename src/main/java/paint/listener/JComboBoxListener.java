@@ -11,7 +11,6 @@ public class JComboBoxListener implements ActionListener {
     private PaintCanvas paintCanvas;
 
     public JComboBoxListener(PaintCanvas paintCanvas) {
-        super();
         this.paintCanvas = paintCanvas;
     }
 
@@ -19,7 +18,8 @@ public class JComboBoxListener implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         JComboBox source = (JComboBox) e.getSource();
         String color = (String) source.getSelectedItem();
-        this.paintCanvas.setColorCombo(color);
+
+        this.paintCanvas.setColor(color);
     }
 
 }

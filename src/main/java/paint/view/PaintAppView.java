@@ -2,21 +2,20 @@ package paint.view;
 
 import paint.draw.CreateJMenuBar;
 import paint.draw.PaintCanvas;
+import paint.draw.SaveImages;
 import paint.listener.JComboBoxListener;
 import paint.listener.JSliderListener;
 
+import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
+import java.awt.image.BufferedImage;
 
-import javax.swing.*;
+public class PaintAppView extends PaintCanvas {
 
-public class PaintAppView extends PaintCanvas{
-    public int w = 900;
-    public int h = 700;
-    private Image image;
-    private Image change;
-    private ImageIcon imageIcon;
-    private CreateJMenuBar createMenuBar = new CreateJMenuBar();
+    public static int width = 900;
+    public static int height = 700;
+    private BufferedImage bufferedImage;
 
     public PaintAppView() {
         run();
@@ -25,10 +24,8 @@ public class PaintAppView extends PaintCanvas{
     private void run() {
         JFrame frame = new JFrame("그림판");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setSize(w, h);
+        frame.setSize(width, height);
         frame.setLocationRelativeTo(null);
-
-        PaintCanvas canvas = new PaintCanvas();
 
         JPanel jPanel = new JPanel();
         frame.getContentPane().add(jPanel, BorderLayout.CENTER);
@@ -36,83 +33,69 @@ public class PaintAppView extends PaintCanvas{
         JPanel functionPanel = new JPanel();
         frame.getContentPane().add(functionPanel, BorderLayout.NORTH);
 
-        canvas.setPreferredSize(new Dimension(w, h));
-        jPanel.add(canvas);
+        setPreferredSize(new Dimension(width, height));
+        jPanel.add(this);
 
-        //텍스트 아이콘
-        JButton textButton = new JButton();
-        //textButton.setBounds(10, 10, 40, 40);
-
-        ImageIcon text = new ImageIcon("src/images/textIcon.png");
-        image = text.getImage();
-        change = image.getScaledInstance(25, 25, Image.SCALE_SMOOTH);
-        imageIcon = new ImageIcon(change);
-
-        textButton.setIcon(imageIcon);
-
-        functionPanel.add(textButton);
-
-        //지우개 아이콘
-        JButton clearButton = new JButton();
-        //clearButton.setBounds(60, 10, 40, 40);
-
-        ImageIcon clear = new ImageIcon("src/images/clearIcon.png");
-        image = clear.getImage();
-        change = image.getScaledInstance(25, 25, Image.SCALE_SMOOTH);
-        imageIcon = new ImageIcon(change);
-
-        clearButton.setIcon(imageIcon);
-
-        clearButton.addMouseListener(new MouseAdapter() {
+        setIconButton(functionPanel, "src/images/textIcon.png", new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
                 super.mouseClicked(e);
-                canvas.clearImages();
-
             }
         });
 
-        functionPanel.add(clearButton);
+        setIconButton(functionPanel, "src/images/clearIcon.png",  new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                clearImages();
+            }
+        });
 
-        //선굵기 조정
-        JSlider jSlider = new JSlider(1, 50, 1);
-
-        jSlider.addChangeListener(new JSliderListener(canvas));
-
+        JSlider jSlider = new JSlider(JSlider.HORIZONTAL, 1, 3, 1);
+        jSlider.setPaintTicks(true);
+        jSlider.setMajorTickSpacing(1);
+        jSlider.addChangeListener(new JSliderListener(PaintAppView.this));
         functionPanel.add(jSlider);
 
-        //배열로 선 색상 변경
         String[] colors = {"RED", "ORANGE", "YELLOW", "GREEN", "BLUE", "PURPLE", "BLACK"};
-
-        JComboBox jComboBox = new JComboBox(colors);
-        jComboBox.addActionListener(new JComboBoxListener(canvas));
+        JComboBox<String> jComboBox = new JComboBox<>(colors);
+        jComboBox.addActionListener(new JComboBoxListener(PaintAppView.this));
         functionPanel.add(jComboBox);
 
-        frame.add(canvas);
-
-        //저장 아이콘
-        JButton saveButton = new JButton();
-
-        ImageIcon save = new ImageIcon("src/images/saveIcon.png");
-        image = save.getImage();
-        change = image.getScaledInstance(25, 25, Image.SCALE_SMOOTH);
-        imageIcon = new ImageIcon(change);
-
-        saveButton.setIcon(imageIcon);
-
-        saveButton.addMouseListener(new MouseAdapter() {
+        setSaveIcon(functionPanel, "src/images/saveIcon.png",  new ActionListener() {
             @Override
-            public void mouseClicked(MouseEvent e) {
-                super.mouseClicked(e);
+            public void actionPerformed(ActionEvent e) {
+                SaveImages saveImages = new SaveImages(bufferedImage);
+                saveImages.actionPerformed(e);
             }
         });
 
-        functionPanel.add(saveButton);
+        CreateJMenuBar createJMenuBar = new CreateJMenuBar(bufferedImage);
+        frame.setJMenuBar(createJMenuBar.createMenuBar());
 
-        frame.setJMenuBar(createMenuBar.createMenuBar());
-
+        frame.add(this);
         frame.setVisible(true);
+    }
 
+    private void setIconButton(JPanel jPanel, String iconPath, MouseAdapter adapter) {
+        JButton jButton = new JButton();
+        ImageIcon icon = new ImageIcon(iconPath);
+        Image image = icon.getImage();
+        Image scaledImage = image.getScaledInstance(25, 25, Image.SCALE_SMOOTH);
+        ImageIcon scaledIcon = new ImageIcon(scaledImage);
+        jButton.setIcon(scaledIcon);
+        jButton.addMouseListener(adapter);
+        jPanel.add(jButton);
+    }
+
+    private void setSaveIcon(JPanel jPanel, String iconPath, ActionListener listener) {
+        JButton jButton = new JButton();
+        ImageIcon icon = new ImageIcon(iconPath);
+        Image image = icon.getImage();
+        Image scaledImage = image.getScaledInstance(25, 25, Image.SCALE_SMOOTH);
+        ImageIcon scaledIcon = new ImageIcon(scaledImage);
+        jButton.setIcon(scaledIcon);
+        jButton.addActionListener(listener);
+        jPanel.add(jButton);
     }
 
 }

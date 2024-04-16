@@ -1,19 +1,31 @@
 package paint.draw;
 
 import javax.swing.*;
+import java.awt.image.BufferedImage;
 
 public class CreateJMenuBar {
 
-    public JMenuBar createMenuBar(){
-        JMenuBar jMenuBar = new JMenuBar();
-        JMenu jMenu = new JMenu("파일");
-        JMenuItem save = new JMenuItem("저장");
-        JMenuItem load = new JMenuItem("열기");
-        jMenu.add(save);
-        jMenu.add(load);
-        jMenuBar.add(jMenu);
-        return jMenuBar;
+    private BufferedImage bufferedImage;
 
+    public CreateJMenuBar(BufferedImage bufferedImage){
+        this.bufferedImage = bufferedImage;
     }
 
+    public JMenuBar createMenuBar(){
+        JMenuBar jMenuBar = new JMenuBar();
+        JMenu jMenu = new JMenu("File");
+        JMenuItem save = new JMenuItem("Save");
+        JMenuItem open = new JMenuItem("Open");
+
+        save.addActionListener(new SaveImages(bufferedImage));
+        open.addActionListener(new OpenImages(bufferedImage));
+
+        jMenu.add(save);
+        jMenu.add(open);
+
+        jMenuBar.add(jMenu);
+
+        return jMenuBar;
+    }
 }
+
