@@ -9,13 +9,12 @@ import paint.listener.JSliderListener;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
-import java.awt.image.BufferedImage;
 
 public class PaintAppView extends PaintCanvas {
 
     public static int width = 900;
     public static int height = 700;
-    private BufferedImage bufferedImage;
+    private PaintCanvas paintCanvas;
 
     public PaintAppView() {
         run();
@@ -64,12 +63,12 @@ public class PaintAppView extends PaintCanvas {
         setSaveIcon(functionPanel, "src/images/saveIcon.png",  new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                SaveImages saveImages = new SaveImages(bufferedImage);
+                SaveImages saveImages = new SaveImages(paintCanvas);
                 saveImages.actionPerformed(e);
             }
         });
 
-        CreateJMenuBar createJMenuBar = new CreateJMenuBar(bufferedImage);
+        CreateJMenuBar createJMenuBar = new CreateJMenuBar(paintCanvas);
         frame.setJMenuBar(createJMenuBar.createMenuBar());
 
         frame.add(this);

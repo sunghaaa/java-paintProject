@@ -6,9 +6,10 @@ import java.awt.image.BufferedImage;
 public class CreateJMenuBar {
 
     private BufferedImage bufferedImage;
+    private PaintCanvas paintCanvas;
 
-    public CreateJMenuBar(BufferedImage bufferedImage){
-        this.bufferedImage = bufferedImage;
+    public CreateJMenuBar(PaintCanvas paintCanvas){
+        this.paintCanvas = paintCanvas;
     }
 
     public JMenuBar createMenuBar(){
@@ -17,7 +18,7 @@ public class CreateJMenuBar {
         JMenuItem save = new JMenuItem("Save");
         JMenuItem open = new JMenuItem("Open");
 
-        save.addActionListener(new SaveImages(bufferedImage));
+        save.addActionListener(new SaveImages(paintCanvas));
         open.addActionListener(new OpenImages(bufferedImage));
 
         jMenu.add(save);
