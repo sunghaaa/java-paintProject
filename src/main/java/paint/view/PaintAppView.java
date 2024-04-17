@@ -14,7 +14,7 @@ public class PaintAppView extends PaintCanvas {
 
     public static int width = 900;
     public static int height = 700;
-    private PaintCanvas paintCanvas;
+    private PaintCanvas paintCanvas = new PaintCanvas();
 
     public PaintAppView() {
         run();
@@ -26,12 +26,23 @@ public class PaintAppView extends PaintCanvas {
         frame.addWindowListener(new WindowAdapter() {
             @Override
             public void windowClosing(WindowEvent e) {
-                super.windowClosing(e);
+                if(bufferedImage != null){
+                    int select = JOptionPane.showConfirmDialog(paintCanvas, "저장하시겠습니까?", null ,JOptionPane.YES_NO_OPTION);
+                    if(select == JOptionPane.YES_OPTION){
+                        SaveImages saveImages = new SaveImages(bufferedImage);
+                        saveImages.actionPerformed(e);
+                    }
+                    if(select == JOptionPane.NO_OPTION){
+                        frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+                    }
+                }
+                frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
             }
         });
 
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+
         frame.setSize(width, height);
         frame.setLocationRelativeTo(null);
 
