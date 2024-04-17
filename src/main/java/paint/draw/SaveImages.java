@@ -5,15 +5,15 @@ import javax.swing.*;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 
 public class SaveImages implements ActionListener {
+    private BufferedImage bufferedImage;
 
-    private PaintCanvas paintCanvas;
-
-    public SaveImages(PaintCanvas paintCanvas) {
-        this.paintCanvas = paintCanvas;
+    public SaveImages(BufferedImage bufferedImage) {
+        this.bufferedImage = bufferedImage;
     }
 
     @Override
@@ -25,11 +25,11 @@ public class SaveImages implements ActionListener {
         if (saveOption == JFileChooser.APPROVE_OPTION) {
             File file = jFileChooser.getSelectedFile();
             try {
-                PaintCanvas saveCanvas = new PaintCanvas();
-                ImageIO.write(saveCanvas.bufferedImage, "png", new File(file.getAbsolutePath()));
+                ImageIO.write(bufferedImage, "png", new File(file.getAbsolutePath()));
                 System.out.println("이미지 저장 성공했습니다.");
             } catch (IOException ioException) {
                 ioException.printStackTrace();
+                System.out.println("이미지 저장 실패" + file.getAbsoluteFile());
             }
         }
         if (saveOption == JFileChooser.CANCEL_OPTION) {

@@ -36,6 +36,7 @@ public class OpenImages implements ActionListener {
                 paintCanvas.repaint();
 
             } catch (IOException ioException) {
+                System.out.println("이미지 열기 실패");
                 ioException.printStackTrace();
             }
 

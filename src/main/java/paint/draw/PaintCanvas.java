@@ -14,13 +14,16 @@ public class PaintCanvas extends JPanel implements MouseListener, MouseMotionLis
 
     private Graphics2D graphics2D;
     private int startX;
-    private int endY;
+    private int startY;
     private int reStartX;
-    private int reEndY;
+    private int reStartY;
     private int thickness = 2;
     public Color color = Color.BLACK;
     private HashMap<String, Color> colorMap;
     public BufferedImage bufferedImage;
+    private int textStartX;
+    private int textStartY;
+    private String inputText;
 
     public PaintCanvas() {
 
@@ -37,6 +40,23 @@ public class PaintCanvas extends JPanel implements MouseListener, MouseMotionLis
         colorMap = new HashMap<>();
 
         initColor();
+        repaint();
+
+    }
+
+    public void insertText(String inputText) {
+        int textStartX = 200;
+        int textEndY = 200;
+
+        this.textStartX = textStartX;
+        this.textStartY = textEndY;
+        this.inputText = inputText;
+
+        graphics2D = (Graphics2D) bufferedImage.getGraphics();
+        graphics2D.setColor(color);
+        graphics2D.setFont(new Font("고딕체", Font.BOLD, 15));
+        graphics2D.drawString(inputText, textStartX, textEndY);
+
         repaint();
 
     }
@@ -65,12 +85,12 @@ public class PaintCanvas extends JPanel implements MouseListener, MouseMotionLis
         this.thickness = thickness;
     }
 
-    public void drawImages() {
-        if (startX >= 0 && endY >= 0 && reStartX >= 0 && reEndY >= 0) {
+    private void drawImages() {
+        if (startX >= 0 && startY >= 0 && reStartX >= 0 && reStartY >= 0) {
             BasicStroke stroke = new BasicStroke(thickness);
             graphics2D.setStroke(stroke);
             graphics2D.setColor(color);
-            graphics2D.drawLine(startX, endY, reStartX, reEndY);
+            graphics2D.drawLine(startX, startY, reStartX, reStartY);
         }
     }
 
@@ -80,18 +100,23 @@ public class PaintCanvas extends JPanel implements MouseListener, MouseMotionLis
     }
 
     @Override
+    protected void paintComponent(Graphics graphics){
+        graphics.drawString(inputText, textStartX, textStartY);
+    }
+
+    @Override
     public void mouseDragged(MouseEvent e) {
         if (e.getID() == MouseEvent.MOUSE_DRAGGED) {
 
             drawImages();
 
             reStartX = startX;
-            reEndY = endY;
+            reStartY = startY;
 
             Point point = e.getPoint();
 
             startX = point.x;
-            endY = point.y;
+            startY = point.y;
 
             repaint();
         }
@@ -100,23 +125,23 @@ public class PaintCanvas extends JPanel implements MouseListener, MouseMotionLis
     @Override
     public void mouseMoved(MouseEvent e) {
         startX = -1;
-        endY = -1;
+        startY = -1;
         reStartX = -1;
-        reEndY = -1;
+        reStartY = -1;
     }
 
     @Override
     public void mouseClicked(MouseEvent e) {
         Point point = e.getPoint();
         startX = point.x;
-        endY = point.y;
+        startY = point.y;
     }
 
     @Override
     public void mousePressed(MouseEvent e) {
         Point point = e.getPoint();
         startX = point.x;
-        endY = point.y;
+        startY = point.y;
     }
 
     @Override

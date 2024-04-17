@@ -22,6 +22,15 @@ public class PaintAppView extends PaintCanvas {
 
     private void run() {
         JFrame frame = new JFrame("그림판");
+
+        frame.addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent e) {
+                super.windowClosing(e);
+
+            }
+        });
+
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(width, height);
         frame.setLocationRelativeTo(null);
@@ -37,8 +46,10 @@ public class PaintAppView extends PaintCanvas {
 
         setIconButton(functionPanel, "src/images/textIcon.png", new MouseAdapter() {
             @Override
-            public void mouseClicked(MouseEvent e) {
-                super.mouseClicked(e);
+            public void mouseClicked(MouseEvent e){
+                String inputText = JOptionPane.showInputDialog(null, "입력하고 싶은 텍스트를 입력하세요.");
+
+                insertText(inputText);
             }
         });
 
@@ -63,7 +74,7 @@ public class PaintAppView extends PaintCanvas {
         setSaveIcon(functionPanel, "src/images/saveIcon.png",  new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                SaveImages saveImages = new SaveImages(paintCanvas);
+                SaveImages saveImages = new SaveImages(bufferedImage);
                 saveImages.actionPerformed(e);
             }
         });
