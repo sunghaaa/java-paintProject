@@ -79,6 +79,7 @@ public class PaintAppView extends PaintCanvas {
 
         String[] colors = {"RED", "ORANGE", "YELLOW", "GREEN", "BLUE", "PURPLE", "BLACK"};
         JComboBox<String> jComboBox = new JComboBox<>(colors);
+        jComboBox.setSelectedIndex(6);
         jComboBox.addActionListener(new JComboBoxListener(PaintAppView.this));
         functionPanel.add(jComboBox);
 
@@ -118,5 +119,27 @@ public class PaintAppView extends PaintCanvas {
         jButton.addActionListener(listener);
         jPanel.add(jButton);
     }
+
+    private void askToSaveAndExit(ActionEvent e) {
+        if (bufferedImage != null) {
+            int select = JOptionPane.showConfirmDialog(paintCanvas, "저장하시겠습니까?", null, JOptionPane.YES_NO_OPTION);
+            if (select == JOptionPane.YES_OPTION) {
+                saveAndExit(e);
+            }
+        }
+        exit();
+    }
+
+    private void saveAndExit(ActionEvent e) {
+        SaveImages saveImages = new SaveImages(bufferedImage);
+        saveImages.actionPerformed(e);
+        exit();
+    }
+
+    private void exit() {
+        JFrame frame = new JFrame();
+        frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+    }
+
 
 }
