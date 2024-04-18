@@ -1,8 +1,6 @@
 package paint.view;
 
-import paint.draw.CreateJMenuBar;
-import paint.draw.PaintCanvas;
-import paint.draw.SaveImages;
+import paint.draw.*;
 import paint.listener.JComboBoxListener;
 import paint.listener.JSliderListener;
 
@@ -10,11 +8,10 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 
-public class PaintAppView extends PaintCanvas {
+public class PaintAppView extends PaintCanvas{
 
     public static int width = 900;
     public static int height = 700;
-    private PaintCanvas paintCanvas = new PaintCanvas();
 
     public PaintAppView() {
         run();
@@ -22,26 +19,7 @@ public class PaintAppView extends PaintCanvas {
 
     private void run() {
         JFrame frame = new JFrame("그림판");
-
-        frame.addWindowListener(new WindowAdapter() {
-            @Override
-            public void windowClosing(WindowEvent e) {
-                if(bufferedImage != null){
-                    int select = JOptionPane.showConfirmDialog(paintCanvas, "저장하시겠습니까?", null ,JOptionPane.YES_NO_OPTION);
-                    if(select == JOptionPane.YES_OPTION){
-                        SaveImages saveImages = new SaveImages(bufferedImage);
-                        saveImages.actionPerformed(e);
-                    }
-                    if(select == JOptionPane.NO_OPTION){
-                        frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-                    }
-                }
-                frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-
-            }
-        });
-
-        frame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         frame.setSize(width, height);
         frame.setLocationRelativeTo(null);
@@ -91,7 +69,7 @@ public class PaintAppView extends PaintCanvas {
             }
         });
 
-        CreateJMenuBar createJMenuBar = new CreateJMenuBar(paintCanvas);
+        CreateJMenuBar createJMenuBar = new CreateJMenuBar(this);
         frame.setJMenuBar(createJMenuBar.createMenuBar());
 
         frame.add(this);
@@ -119,27 +97,5 @@ public class PaintAppView extends PaintCanvas {
         jButton.addActionListener(listener);
         jPanel.add(jButton);
     }
-
-    private void askToSaveAndExit(ActionEvent e) {
-        if (bufferedImage != null) {
-            int select = JOptionPane.showConfirmDialog(paintCanvas, "저장하시겠습니까?", null, JOptionPane.YES_NO_OPTION);
-            if (select == JOptionPane.YES_OPTION) {
-                saveAndExit(e);
-            }
-        }
-        exit();
-    }
-
-    private void saveAndExit(ActionEvent e) {
-        SaveImages saveImages = new SaveImages(bufferedImage);
-        saveImages.actionPerformed(e);
-        exit();
-    }
-
-    private void exit() {
-        JFrame frame = new JFrame();
-        frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-    }
-
 
 }

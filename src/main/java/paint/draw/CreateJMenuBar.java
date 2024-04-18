@@ -3,23 +3,23 @@ package paint.draw;
 import javax.swing.*;
 import java.awt.image.BufferedImage;
 
-public class CreateJMenuBar {
+public class CreateJMenuBar{
 
     private BufferedImage bufferedImage;
     private PaintCanvas paintCanvas;
 
-    public CreateJMenuBar(PaintCanvas paintCanvas){
+    public CreateJMenuBar(PaintCanvas paintCanvas) {
         this.paintCanvas = paintCanvas;
     }
 
-    public JMenuBar createMenuBar(){
+    public JMenuBar createMenuBar() {
         JMenuBar jMenuBar = new JMenuBar();
         JMenu jMenu = new JMenu("File");
         JMenuItem save = new JMenuItem("Save");
         JMenuItem open = new JMenuItem("Open");
 
         save.addActionListener(new SaveImages(bufferedImage));
-        open.addActionListener(new OpenImages(bufferedImage));
+        open.addActionListener(new OpenImages(paintCanvas));
 
         jMenu.add(save);
         jMenu.add(open);
