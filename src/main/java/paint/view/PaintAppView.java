@@ -71,7 +71,7 @@ public class PaintAppView extends PaintCanvas {
             }
         });
 
-        JSlider jSlider = new JSlider(JSlider.HORIZONTAL, 1, 3, 1);
+        JSlider jSlider = new JSlider(JSlider.HORIZONTAL, 1, 3, 2);
         jSlider.setPaintTicks(true);
         jSlider.setMajorTickSpacing(1);
         jSlider.addChangeListener(new JSliderListener(PaintAppView.this));
