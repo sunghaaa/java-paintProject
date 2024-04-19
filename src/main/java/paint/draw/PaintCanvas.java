@@ -100,7 +100,7 @@ public class PaintCanvas extends JPanel implements MouseListener, MouseMotionLis
     }
 
     @Override
-    protected void paintComponent(Graphics graphics){
+    protected void paintComponent(Graphics graphics) {
         graphics.drawString(inputText, textStartX, textStartY);
     }
 
