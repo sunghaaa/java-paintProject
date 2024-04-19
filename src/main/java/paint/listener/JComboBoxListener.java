@@ -1,7 +1,6 @@
 package paint.listener;
 
 import paint.draw.PaintCanvas;
-
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -21,5 +20,4 @@ public class JComboBoxListener implements ActionListener {
 
         this.paintCanvas.setColor(color);
     }
-
 }

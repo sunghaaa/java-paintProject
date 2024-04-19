@@ -8,7 +8,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 
-public class PaintAppView extends PaintCanvas{
+public class PaintAppView{
 
     public static int width = 900;
     public static int height = 700;
@@ -24,55 +24,62 @@ public class PaintAppView extends PaintCanvas{
         frame.setSize(width, height);
         frame.setLocationRelativeTo(null);
 
+        PaintCanvas paintCanvas = new PaintCanvas();
+
         JPanel jPanel = new JPanel();
-        frame.getContentPane().add(jPanel, BorderLayout.CENTER);
+        frame.add(jPanel, BorderLayout.CENTER);
 
         JPanel functionPanel = new JPanel();
-        frame.getContentPane().add(functionPanel, BorderLayout.NORTH);
+        frame.add(functionPanel, BorderLayout.NORTH);
 
-        setPreferredSize(new Dimension(width, height));
-        jPanel.add(this);
+        frame.add(paintCanvas);
+
 
         setIconButton(functionPanel, "src/images/textIcon.png", new MouseAdapter() {
             @Override
-            public void mouseClicked(MouseEvent e){
-                String inputText = JOptionPane.showInputDialog(null, "입력하고 싶은 텍스트를 입력하세요.");
+            public void mouseClicked(MouseEvent e) {
+                InsertTextFiled insertTextFiled = new InsertTextFiled();
+                frame.add(insertTextFiled);
+                insertTextFiled.requestFocusInWindow();
 
-                insertText(inputText);
+                if(e.getClickCount() == 1){
+
+                    System.out.println("클릭한번누르면 입력창");
+
+                }
             }
         });
 
         setIconButton(functionPanel, "src/images/clearIcon.png",  new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                clearImages();
+                paintCanvas.clearImages();
             }
         });
 
         JSlider jSlider = new JSlider(JSlider.HORIZONTAL, 1, 3, 2);
         jSlider.setPaintTicks(true);
         jSlider.setMajorTickSpacing(1);
-        jSlider.addChangeListener(new JSliderListener(PaintAppView.this));
+        jSlider.addChangeListener(new JSliderListener(paintCanvas));
         functionPanel.add(jSlider);
 
         String[] colors = {"RED", "ORANGE", "YELLOW", "GREEN", "BLUE", "PURPLE", "BLACK"};
         JComboBox<String> jComboBox = new JComboBox<>(colors);
         jComboBox.setSelectedIndex(6);
-        jComboBox.addActionListener(new JComboBoxListener(PaintAppView.this));
+        jComboBox.addActionListener(new JComboBoxListener(paintCanvas));
         functionPanel.add(jComboBox);
 
-        setSaveIcon(functionPanel, "src/images/saveIcon.png",  new ActionListener() {
+        setSaveIcon(functionPanel, "src/images/saveIcon.png", new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                SaveImages saveImages = new SaveImages(bufferedImage);
+                SaveImages saveImages = new SaveImages(paintCanvas.bufferedImage);
                 saveImages.actionPerformed(e);
             }
         });
 
-        CreateJMenuBar createJMenuBar = new CreateJMenuBar(this);
+        CreateJMenuBar createJMenuBar = new CreateJMenuBar(this, paintCanvas.bufferedImage);
         frame.setJMenuBar(createJMenuBar.createMenuBar());
 
-        frame.add(this);
         frame.setVisible(true);
     }
 
@@ -95,6 +102,17 @@ public class PaintAppView extends PaintCanvas{
         ImageIcon scaledIcon = new ImageIcon(scaledImage);
         jButton.setIcon(scaledIcon);
         jButton.addActionListener(listener);
+        jPanel.add(jButton);
+    }
+
+    private void setTextButton(JPanel jPanel, String iconPath, KeyAdapter adapter) {
+        JButton jButton = new JButton();
+        ImageIcon icon = new ImageIcon(iconPath);
+        Image image = icon.getImage();
+        Image scaledImage = image.getScaledInstance(25, 25, Image.SCALE_SMOOTH);
+        ImageIcon scaledIcon = new ImageIcon(scaledImage);
+        jButton.setIcon(scaledIcon);
+        jButton.addKeyListener(adapter);
         jPanel.add(jButton);
     }
 

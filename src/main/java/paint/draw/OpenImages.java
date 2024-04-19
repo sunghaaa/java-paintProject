@@ -5,16 +5,17 @@ import javax.swing.*;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 
 public class OpenImages implements ActionListener {
-
-    public PaintCanvas paintCanvas;
     private JFileChooser jFileChooser = new JFileChooser();
+    public BufferedImage bufferedImage;
+    public PaintCanvas paintCanvas;
 
-    public OpenImages(PaintCanvas paintCanvas){
-        this.paintCanvas = paintCanvas;
+    public OpenImages(BufferedImage bufferedImage){
+        this.bufferedImage = bufferedImage;
     }
 
     @Override
@@ -28,7 +29,7 @@ public class OpenImages implements ActionListener {
             File selectedFile = jFileChooser.getSelectedFile();
 
             try {
-                paintCanvas.bufferedImage = ImageIO.read(new File(selectedFile.getAbsolutePath()));
+                bufferedImage = ImageIO.read(new File(selectedFile.getAbsolutePath()));
                 System.out.println("이미지 열기 성공했습니다.");
 
                 paintCanvas.repaint();

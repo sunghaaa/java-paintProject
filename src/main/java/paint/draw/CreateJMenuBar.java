@@ -1,15 +1,18 @@
 package paint.draw;
 
+import paint.view.PaintAppView;
+
 import javax.swing.*;
 import java.awt.image.BufferedImage;
 
 public class CreateJMenuBar{
 
     private BufferedImage bufferedImage;
-    private PaintCanvas paintCanvas;
+    private PaintAppView paintAppView;
 
-    public CreateJMenuBar(PaintCanvas paintCanvas) {
-        this.paintCanvas = paintCanvas;
+     public CreateJMenuBar(PaintAppView paintAppView, BufferedImage bufferedImage){
+         this.paintAppView = paintAppView;
+        this.bufferedImage = bufferedImage;
     }
 
     public JMenuBar createMenuBar() {
@@ -19,7 +22,7 @@ public class CreateJMenuBar{
         JMenuItem open = new JMenuItem("Open");
 
         save.addActionListener(new SaveImages(bufferedImage));
-        open.addActionListener(new OpenImages(paintCanvas));
+        open.addActionListener(new OpenImages(bufferedImage));
 
         jMenu.add(save);
         jMenu.add(open);
