@@ -9,10 +9,11 @@ public class CreateJMenuBar{
 
     private BufferedImage bufferedImage;
     private PaintAppView paintAppView;
+    private PaintCanvas paintCanvas;
 
-     public CreateJMenuBar(PaintAppView paintAppView, BufferedImage bufferedImage){
-         this.paintAppView = paintAppView;
-        this.bufferedImage = bufferedImage;
+    public CreateJMenuBar(PaintAppView paintAppView, PaintCanvas paintCanvas){
+        this.paintAppView = paintAppView;
+        this.paintCanvas = paintCanvas;
     }
 
     public JMenuBar createMenuBar() {
@@ -22,7 +23,7 @@ public class CreateJMenuBar{
         JMenuItem open = new JMenuItem("Open");
 
         save.addActionListener(new SaveImages(bufferedImage));
-        open.addActionListener(new OpenImages(bufferedImage));
+        open.addActionListener(new OpenImages(bufferedImage, paintCanvas));
 
         jMenu.add(save);
         jMenu.add(open);

@@ -10,6 +10,7 @@ import java.awt.event.*;
 
 public class PaintAppView{
 
+    private PaintCanvas paintCanvas;
     public static int width = 900;
     public static int height = 700;
 
@@ -24,7 +25,7 @@ public class PaintAppView{
         frame.setSize(width, height);
         frame.setLocationRelativeTo(null);
 
-        PaintCanvas paintCanvas = new PaintCanvas();
+        paintCanvas = new PaintCanvas();
 
         JPanel jPanel = new JPanel();
         frame.add(jPanel, BorderLayout.CENTER);
@@ -46,7 +47,19 @@ public class PaintAppView{
 
                     System.out.println("클릭한번누르면 입력창");
 
+
                 }
+            }
+        });
+
+        setTextIcon(functionPanel, "src/images/textIcon.png", new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                InsertTextFiled insertTextFiled = new InsertTextFiled();
+                insertTextFiled.requestFocusInWindow();
+                String string = e.getActionCommand();
+                System.out.println("text 테스트");
+
             }
         });
 
@@ -77,7 +90,7 @@ public class PaintAppView{
             }
         });
 
-        CreateJMenuBar createJMenuBar = new CreateJMenuBar(this, paintCanvas.bufferedImage);
+        CreateJMenuBar createJMenuBar = new CreateJMenuBar(this, paintCanvas);
         frame.setJMenuBar(createJMenuBar.createMenuBar());
 
         frame.setVisible(true);
@@ -105,14 +118,14 @@ public class PaintAppView{
         jPanel.add(jButton);
     }
 
-    private void setTextButton(JPanel jPanel, String iconPath, KeyAdapter adapter) {
+    private void setTextIcon(JPanel jPanel, String iconPath, ActionListener listener) {
         JButton jButton = new JButton();
         ImageIcon icon = new ImageIcon(iconPath);
         Image image = icon.getImage();
         Image scaledImage = image.getScaledInstance(25, 25, Image.SCALE_SMOOTH);
         ImageIcon scaledIcon = new ImageIcon(scaledImage);
         jButton.setIcon(scaledIcon);
-        jButton.addKeyListener(adapter);
+        jButton.addActionListener(listener);
         jPanel.add(jButton);
     }
 

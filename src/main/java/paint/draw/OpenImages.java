@@ -10,12 +10,13 @@ import java.io.File;
 import java.io.IOException;
 
 public class OpenImages implements ActionListener {
-    private JFileChooser jFileChooser = new JFileChooser();
+    private final JFileChooser jFileChooser = new JFileChooser();
     public BufferedImage bufferedImage;
     public PaintCanvas paintCanvas;
 
-    public OpenImages(BufferedImage bufferedImage){
+    public OpenImages(BufferedImage bufferedImage, PaintCanvas paintCanvas){
         this.bufferedImage = bufferedImage;
+        this.paintCanvas = paintCanvas;
     }
 
     @Override
@@ -32,6 +33,8 @@ public class OpenImages implements ActionListener {
                 bufferedImage = ImageIO.read(new File(selectedFile.getAbsolutePath()));
                 System.out.println("이미지 열기 성공했습니다.");
 
+                paintCanvas.bufferedImage = bufferedImage;
+
                 paintCanvas.repaint();
 
             } catch (IOException ioException) {
@@ -40,8 +43,6 @@ public class OpenImages implements ActionListener {
             }
 
         }
-        if (loadOption == JFileChooser.CANCEL_OPTION) {
-            System.out.println("이미지 열기 취소했습니다.");
-        }
+
     }
 }

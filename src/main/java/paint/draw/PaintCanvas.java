@@ -21,9 +21,6 @@ public class PaintCanvas extends JPanel implements MouseListener, MouseMotionLis
     public Color color = Color.BLACK;
     private HashMap<String, Color> colorMap;
     public BufferedImage bufferedImage;
-    private int textStartX;
-    private int textStartY;
-    private String inputText;
 
     public PaintCanvas() {
 
@@ -40,23 +37,6 @@ public class PaintCanvas extends JPanel implements MouseListener, MouseMotionLis
         colorMap = new HashMap<>();
 
         initColor();
-        repaint();
-
-    }
-
-    public void insertText(String inputText) {
-        int textStartX = 200;
-        int textEndY = 200;
-
-        this.textStartX = textStartX;
-        this.textStartY = textEndY;
-        this.inputText = inputText;
-
-        graphics2D = (Graphics2D) bufferedImage.getGraphics();
-        graphics2D.setColor(color);
-        graphics2D.setFont(new Font("고딕체", Font.BOLD, 15));
-        graphics2D.drawString(inputText, textStartX, textEndY);
-
         repaint();
 
     }
@@ -85,7 +65,7 @@ public class PaintCanvas extends JPanel implements MouseListener, MouseMotionLis
         this.thickness = thickness;
     }
 
-    private void drawImages() {
+    public void drawImages() {
         if (startX >= 0 && startY >= 0 && reStartX >= 0 && reStartY >= 0) {
             BasicStroke stroke = new BasicStroke(thickness);
             graphics2D.setStroke(stroke);
@@ -94,14 +74,10 @@ public class PaintCanvas extends JPanel implements MouseListener, MouseMotionLis
         }
     }
 
-    @Override
-    public void paint(Graphics graphics) {
-        graphics.drawImage(bufferedImage, 0, 0, null);
-    }
 
     @Override
     protected void paintComponent(Graphics graphics) {
-        graphics.drawString(inputText, textStartX, textStartY);
+        graphics.drawImage(bufferedImage, 0,0, null);
     }
 
     @Override
