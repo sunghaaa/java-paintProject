@@ -2,10 +2,10 @@ package paint.draw;
 
 import javax.swing.*;
 
-public class CreateJMenuBar{
+public class CreateJMenuBar {
     private PaintCanvas paintCanvas;
 
-    public CreateJMenuBar(PaintCanvas paintCanvas){
+    public CreateJMenuBar(PaintCanvas paintCanvas) {
         this.paintCanvas = paintCanvas;
     }
 
@@ -26,4 +26,3 @@ public class CreateJMenuBar{
         return jMenuBar;
     }
 }
-

@@ -21,18 +21,14 @@ public class PaintCanvas extends JPanel implements MouseListener, MouseMotionLis
     public BufferedImage bufferedImage;
 
     public PaintCanvas() {
-
         setBackground(Color.WHITE);
 
         bufferedImage = new BufferedImage(PaintAppView.width, PaintAppView.height, BufferedImage.TYPE_INT_RGB);
-        graphics2D = bufferedImage.createGraphics();
-        graphics2D.setColor(Color.WHITE);
-        graphics2D.fillRect(0, 0, PaintAppView.width, PaintAppView.height);
+        setBufferedImage(bufferedImage);
 
         colorMap = new HashMap<>();
 
         initColor();
-        repaint();
 
         addMouseListener(this);
         addMouseMotionListener(this);
@@ -49,6 +45,19 @@ public class PaintCanvas extends JPanel implements MouseListener, MouseMotionLis
         colorMap.put("BLACK", Color.BLACK);
     }
 
+    private void setBufferedImage(BufferedImage bufferedImage) {
+        this.bufferedImage = bufferedImage;
+        graphics2D = this.bufferedImage.createGraphics();
+        graphics2D.setColor(Color.WHITE);
+        graphics2D.fillRect(0, 0, PaintAppView.width, PaintAppView.height);
+        graphics2D.dispose();
+    }
+
+    private void updateImages() {
+        graphics2D = bufferedImage.createGraphics();
+        repaint();
+    }
+
     public void setColor(String colorName) {
         color = colorMap.getOrDefault(colorName, Color.BLACK);
     }
@@ -63,7 +72,7 @@ public class PaintCanvas extends JPanel implements MouseListener, MouseMotionLis
         this.thickness = thickness;
     }
 
-    public void drawImages() {
+    private void drawImages() {
         if (startX >= 0 && startY >= 0 && reStartX >= 0 && reStartY >= 0) {
             BasicStroke stroke = new BasicStroke(thickness);
             graphics2D.setStroke(stroke);
@@ -74,7 +83,7 @@ public class PaintCanvas extends JPanel implements MouseListener, MouseMotionLis
 
     @Override
     protected void paintComponent(Graphics graphics) {
-        graphics.drawImage(bufferedImage, 0,0, null);
+        graphics.drawImage(bufferedImage, 0, 0, null);
     }
 
     @Override
@@ -91,7 +100,7 @@ public class PaintCanvas extends JPanel implements MouseListener, MouseMotionLis
             startX = point.x;
             startY = point.y;
 
-            repaint();
+            updateImages();
         }
     }
 
@@ -119,6 +128,7 @@ public class PaintCanvas extends JPanel implements MouseListener, MouseMotionLis
 
     @Override
     public void mouseReleased(MouseEvent e) {
+
     }
 
     @Override

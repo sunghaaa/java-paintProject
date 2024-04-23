@@ -36,12 +36,10 @@ public class PaintAppView{
             public void mouseClicked(MouseEvent e) {
                 InsertTextFiled insertTextFiled = new InsertTextFiled();
                 frame.add(insertTextFiled);
-                insertTextFiled.requestFocusInWindow();
 
                 if(e.getClickCount() == 1){
 
                     System.out.println("클릭한번누르면 입력창");
-
 
                 }
             }

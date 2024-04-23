@@ -31,7 +31,7 @@ public class OpenImages implements ActionListener {
             File selectedFile = jFileChooser.getSelectedFile();
 
             try {
-                paintCanvas.bufferedImage = ImageIO.read(new File(selectedFile.getAbsolutePath()));
+                paintCanvas.bufferedImage = ImageIO.read(selectedFile);
                 System.out.println("이미지 열기 성공했습니다.");
 
                 paintCanvas.repaint();
@@ -40,8 +40,6 @@ public class OpenImages implements ActionListener {
                 System.out.println("이미지 열기 실패");
                 ioException.printStackTrace();
             }
-
         }
-
     }
 }
