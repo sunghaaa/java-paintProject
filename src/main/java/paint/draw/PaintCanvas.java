@@ -4,13 +4,11 @@ import paint.view.PaintAppView;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
-import java.awt.event.MouseMotionListener;
+import java.awt.event.*;
 import java.awt.image.BufferedImage;
 import java.util.HashMap;
 
-public class PaintCanvas extends JPanel implements MouseListener, MouseMotionListener {
+public class PaintCanvas extends JPanel implements MouseListener, MouseMotionListener{
 
     private Graphics2D graphics2D;
     private int startX;
@@ -24,9 +22,6 @@ public class PaintCanvas extends JPanel implements MouseListener, MouseMotionLis
 
     public PaintCanvas() {
 
-        addMouseListener(this);
-        addMouseMotionListener(this);
-
         setBackground(Color.WHITE);
 
         bufferedImage = new BufferedImage(PaintAppView.width, PaintAppView.height, BufferedImage.TYPE_INT_RGB);
@@ -38,6 +33,9 @@ public class PaintCanvas extends JPanel implements MouseListener, MouseMotionLis
 
         initColor();
         repaint();
+
+        addMouseListener(this);
+        addMouseMotionListener(this);
 
     }
 
@@ -73,7 +71,6 @@ public class PaintCanvas extends JPanel implements MouseListener, MouseMotionLis
             graphics2D.drawLine(startX, startY, reStartX, reStartY);
         }
     }
-
 
     @Override
     protected void paintComponent(Graphics graphics) {

@@ -10,7 +10,6 @@ import java.awt.event.*;
 
 public class PaintAppView{
 
-    private PaintCanvas paintCanvas;
     public static int width = 900;
     public static int height = 700;
 
@@ -25,16 +24,12 @@ public class PaintAppView{
         frame.setSize(width, height);
         frame.setLocationRelativeTo(null);
 
-        paintCanvas = new PaintCanvas();
-
-        JPanel jPanel = new JPanel();
-        frame.add(jPanel, BorderLayout.CENTER);
+        PaintCanvas paintCanvas = new PaintCanvas();
 
         JPanel functionPanel = new JPanel();
         frame.add(functionPanel, BorderLayout.NORTH);
 
         frame.add(paintCanvas);
-
 
         setIconButton(functionPanel, "src/images/textIcon.png", new MouseAdapter() {
             @Override
@@ -90,7 +85,7 @@ public class PaintAppView{
             }
         });
 
-        CreateJMenuBar createJMenuBar = new CreateJMenuBar(this, paintCanvas);
+        CreateJMenuBar createJMenuBar = new CreateJMenuBar(paintCanvas);
         frame.setJMenuBar(createJMenuBar.createMenuBar());
 
         frame.setVisible(true);

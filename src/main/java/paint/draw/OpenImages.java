@@ -10,7 +10,7 @@ import java.io.File;
 import java.io.IOException;
 
 public class OpenImages implements ActionListener {
-    private final JFileChooser jFileChooser = new JFileChooser();
+
     public BufferedImage bufferedImage;
     public PaintCanvas paintCanvas;
 
@@ -21,6 +21,7 @@ public class OpenImages implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
+        JFileChooser jFileChooser = new JFileChooser();
         FileNameExtensionFilter filter = new FileNameExtensionFilter("JPEG", "jpeg", "jpg", "png");
         jFileChooser.addChoosableFileFilter(filter);
 
@@ -30,10 +31,8 @@ public class OpenImages implements ActionListener {
             File selectedFile = jFileChooser.getSelectedFile();
 
             try {
-                bufferedImage = ImageIO.read(new File(selectedFile.getAbsolutePath()));
+                paintCanvas.bufferedImage = ImageIO.read(new File(selectedFile.getAbsolutePath()));
                 System.out.println("이미지 열기 성공했습니다.");
-
-                paintCanvas.bufferedImage = bufferedImage;
 
                 paintCanvas.repaint();
 

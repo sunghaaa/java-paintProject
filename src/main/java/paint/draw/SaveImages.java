@@ -12,7 +12,7 @@ import java.io.IOException;
 public class SaveImages implements ActionListener {
     private BufferedImage bufferedImage;
 
-    public SaveImages(BufferedImage bufferedImage) {
+    public SaveImages(BufferedImage bufferedImage){
         this.bufferedImage = bufferedImage;
     }
 
