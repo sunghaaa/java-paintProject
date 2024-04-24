@@ -38,10 +38,9 @@ public class PaintAppView {
                 JTextArea jTextArea = new JTextArea();
 
                 Point point = e.getPoint();
-                jTextArea.setLocation(point);
-
-                jTextArea.setSize(100, 100);
-
+                jTextArea.setBounds((int) point.getX(), (int) point.getY(), 100, 100);
+                jTextArea.setOpaque(false);
+                jTextArea.setVisible(true);
                 paintCanvas.add(jTextArea);
 
             }
@@ -69,7 +68,7 @@ public class PaintAppView {
         setSaveIcon(functionPanel, "src/images/saveIcon.png", new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                SaveImages saveImages = new SaveImages(paintCanvas.bufferedImage, paintCanvas);
+                SaveImages saveImages = new SaveImages(paintCanvas);
                 saveImages.actionPerformed(e);
             }
         });

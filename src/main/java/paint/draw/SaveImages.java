@@ -5,15 +5,12 @@ import javax.swing.*;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.image.BufferedImage;
 import java.io.*;
 
 public class SaveImages implements ActionListener {
-    private BufferedImage bufferedImage;
     private PaintCanvas paintCanvas;
 
-    public SaveImages(BufferedImage bufferedImage, PaintCanvas paintCanvas) {
-        this.bufferedImage = bufferedImage;
+    public SaveImages(PaintCanvas paintCanvas) {
         this.paintCanvas = paintCanvas;
     }
 

@@ -5,17 +5,14 @@ import javax.swing.*;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 
 public class OpenImages implements ActionListener {
 
-    public BufferedImage bufferedImage;
     private PaintCanvas paintCanvas;
 
-    public OpenImages(BufferedImage bufferedImage, PaintCanvas paintCanvas){
-        this.bufferedImage = bufferedImage;
+    public OpenImages(PaintCanvas paintCanvas) {
         this.paintCanvas = paintCanvas;
     }
 
@@ -41,7 +38,7 @@ public class OpenImages implements ActionListener {
                 ioException.printStackTrace();
             }
         }
-        if(loadOption == JFileChooser.CANCEL_OPTION){
+        if (loadOption == JFileChooser.CANCEL_OPTION) {
             System.out.println("이미지 열기 취소했습니다.");
         }
     }
