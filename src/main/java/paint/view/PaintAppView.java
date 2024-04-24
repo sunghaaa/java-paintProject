@@ -36,10 +36,11 @@ public class PaintAppView {
             public void mouseClicked(MouseEvent e) {
                 System.out.println("텍스트아이콘");
                 JTextArea jTextArea = new JTextArea();
-                jTextArea.setSize(100, 100);
 
                 Point point = e.getPoint();
                 jTextArea.setLocation(point);
+
+                jTextArea.setSize(100, 100);
 
                 paintCanvas.add(jTextArea);
 
@@ -68,7 +69,7 @@ public class PaintAppView {
         setSaveIcon(functionPanel, "src/images/saveIcon.png", new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                SaveImages saveImages = new SaveImages(paintCanvas.bufferedImage);
+                SaveImages saveImages = new SaveImages(paintCanvas.bufferedImage, paintCanvas);
                 saveImages.actionPerformed(e);
             }
         });

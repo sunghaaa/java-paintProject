@@ -10,9 +10,11 @@ import java.io.*;
 
 public class SaveImages implements ActionListener {
     private BufferedImage bufferedImage;
+    private PaintCanvas paintCanvas;
 
-    public SaveImages(BufferedImage bufferedImage) {
+    public SaveImages(BufferedImage bufferedImage, PaintCanvas paintCanvas) {
         this.bufferedImage = bufferedImage;
+        this.paintCanvas = paintCanvas;
     }
 
     @Override
@@ -24,11 +26,11 @@ public class SaveImages implements ActionListener {
         if (saveOption == JFileChooser.APPROVE_OPTION) {
             File file = jFileChooser.getSelectedFile();
             try {
-                ImageIO.write(bufferedImage, "png", new File(file.getAbsolutePath()));
+                ImageIO.write(paintCanvas.bufferedImage, "png", new File(file.getAbsolutePath()));
                 System.out.println("이미지 저장 성공했습니다.");
             } catch (IOException ioException) {
                 ioException.printStackTrace();
-                System.out.println("이미지 저장 실패" + file.getAbsoluteFile());
+                System.out.println("이미지 저장 실패했습니다." + file.getAbsoluteFile());
             }
         }
         if (saveOption == JFileChooser.CANCEL_OPTION) {

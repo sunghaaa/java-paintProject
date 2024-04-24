@@ -12,7 +12,7 @@ import java.io.IOException;
 public class OpenImages implements ActionListener {
 
     public BufferedImage bufferedImage;
-    public PaintCanvas paintCanvas;
+    private PaintCanvas paintCanvas;
 
     public OpenImages(BufferedImage bufferedImage, PaintCanvas paintCanvas){
         this.bufferedImage = bufferedImage;
@@ -32,14 +32,17 @@ public class OpenImages implements ActionListener {
 
             try {
                 paintCanvas.bufferedImage = ImageIO.read(selectedFile);
-                System.out.println("이미지 열기 성공했습니다.");
+                System.out.println("이미지 열기 성공했습니다." + selectedFile.getAbsolutePath());
 
                 paintCanvas.repaint();
 
             } catch (IOException ioException) {
-                System.out.println("이미지 열기 실패");
+                System.out.println("이미지 열기 실패했습니다.");
                 ioException.printStackTrace();
             }
+        }
+        if(loadOption == JFileChooser.CANCEL_OPTION){
+            System.out.println("이미지 열기 취소했습니다.");
         }
     }
 }

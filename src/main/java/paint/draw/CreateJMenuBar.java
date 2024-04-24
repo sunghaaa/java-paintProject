@@ -15,7 +15,7 @@ public class CreateJMenuBar {
         JMenuItem save = new JMenuItem("Save");
         JMenuItem open = new JMenuItem("Open");
 
-        save.addActionListener(new SaveImages(paintCanvas.bufferedImage));
+        save.addActionListener(new SaveImages(paintCanvas.bufferedImage, paintCanvas));
         open.addActionListener(new OpenImages(paintCanvas.bufferedImage, paintCanvas));
 
         jMenu.add(save);
