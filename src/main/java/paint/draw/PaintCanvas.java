@@ -8,7 +8,7 @@ import java.awt.event.*;
 import java.awt.image.BufferedImage;
 import java.util.HashMap;
 
-public class PaintCanvas extends JPanel implements MouseListener, MouseMotionListener{
+public class PaintCanvas extends JPanel implements MouseListener, MouseMotionListener {
 
     private Graphics2D graphics2D;
     private int startX;

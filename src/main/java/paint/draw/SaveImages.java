@@ -6,13 +6,12 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
+import java.io.*;
 
 public class SaveImages implements ActionListener {
     private BufferedImage bufferedImage;
 
-    public SaveImages(BufferedImage bufferedImage){
+    public SaveImages(BufferedImage bufferedImage) {
         this.bufferedImage = bufferedImage;
     }
 
@@ -35,7 +34,5 @@ public class SaveImages implements ActionListener {
         if (saveOption == JFileChooser.CANCEL_OPTION) {
             System.out.println("이미지 저장 취소했습니다.");
         }
-
-
     }
 }

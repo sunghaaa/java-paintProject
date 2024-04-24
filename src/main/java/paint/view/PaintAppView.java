@@ -8,7 +8,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 
-public class PaintAppView{
+public class PaintAppView {
 
     public static int width = 900;
     public static int height = 700;
@@ -34,29 +34,19 @@ public class PaintAppView{
         setIconButton(functionPanel, "src/images/textIcon.png", new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                InsertTextFiled insertTextFiled = new InsertTextFiled();
-                frame.add(insertTextFiled);
+                System.out.println("텍스트아이콘");
+                JTextArea jTextArea = new JTextArea();
+                jTextArea.setSize(100, 100);
 
-                if(e.getClickCount() == 1){
+                Point point = e.getPoint();
+                jTextArea.setLocation(point);
 
-                    System.out.println("클릭한번누르면 입력창");
-
-                }
-            }
-        });
-
-        setTextIcon(functionPanel, "src/images/textIcon.png", new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                InsertTextFiled insertTextFiled = new InsertTextFiled();
-                insertTextFiled.requestFocusInWindow();
-                String string = e.getActionCommand();
-                System.out.println("text 테스트");
+                paintCanvas.add(jTextArea);
 
             }
         });
 
-        setIconButton(functionPanel, "src/images/clearIcon.png",  new MouseAdapter() {
+        setIconButton(functionPanel, "src/images/clearIcon.png", new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
                 paintCanvas.clearImages();
@@ -110,16 +100,4 @@ public class PaintAppView{
         jButton.addActionListener(listener);
         jPanel.add(jButton);
     }
-
-    private void setTextIcon(JPanel jPanel, String iconPath, ActionListener listener) {
-        JButton jButton = new JButton();
-        ImageIcon icon = new ImageIcon(iconPath);
-        Image image = icon.getImage();
-        Image scaledImage = image.getScaledInstance(25, 25, Image.SCALE_SMOOTH);
-        ImageIcon scaledIcon = new ImageIcon(scaledImage);
-        jButton.setIcon(scaledIcon);
-        jButton.addActionListener(listener);
-        jPanel.add(jButton);
-    }
-
 }
