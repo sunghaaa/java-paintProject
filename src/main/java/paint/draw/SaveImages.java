@@ -27,7 +27,7 @@ public class SaveImages implements ActionListener {
                 System.out.println("이미지 저장 성공했습니다.");
             } catch (IOException ioException) {
                 ioException.printStackTrace();
-                System.out.println("이미지 저장 실패했습니다." + file.getAbsoluteFile());
+                System.out.println("이미지 저장 실패했습니다.");
             }
         }
         if (saveOption == JFileChooser.CANCEL_OPTION) {

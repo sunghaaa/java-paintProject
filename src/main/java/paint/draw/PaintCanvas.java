@@ -7,6 +7,7 @@ import java.awt.*;
 import java.awt.event.*;
 import java.awt.image.BufferedImage;
 import java.util.HashMap;
+import java.util.Map;
 
 public class PaintCanvas extends JPanel implements MouseListener, MouseMotionListener {
 
@@ -17,7 +18,7 @@ public class PaintCanvas extends JPanel implements MouseListener, MouseMotionLis
     private int reStartY;
     private int thickness = 2;
     public Color color = Color.BLACK;
-    private HashMap<String, Color> colorMap;
+    private Map<String, Color> colorMap;
     public BufferedImage bufferedImage;
 
     public PaintCanvas() {

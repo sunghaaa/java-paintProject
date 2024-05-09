@@ -26,13 +26,10 @@ public class OpenImages implements ActionListener {
 
         if (loadOption == JFileChooser.APPROVE_OPTION) {
             File selectedFile = jFileChooser.getSelectedFile();
-
             try {
                 paintCanvas.bufferedImage = ImageIO.read(selectedFile);
-                System.out.println("이미지 열기 성공했습니다." + selectedFile.getAbsolutePath());
-
+                System.out.println("이미지 열기 성공했습니다.");
                 paintCanvas.repaint();
-
             } catch (IOException ioException) {
                 System.out.println("이미지 열기 실패했습니다.");
                 ioException.printStackTrace();

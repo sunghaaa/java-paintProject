@@ -31,21 +31,6 @@ public class PaintAppView {
 
         frame.add(paintCanvas);
 
-        setIconButton(functionPanel, "src/images/textIcon.png", new MouseAdapter() {
-            @Override
-            public void mouseClicked(MouseEvent e) {
-                System.out.println("텍스트아이콘");
-                JTextArea jTextArea = new JTextArea();
-
-                Point point = e.getPoint();
-                jTextArea.setBounds((int) point.getX(), (int) point.getY(), 100, 100);
-                jTextArea.setOpaque(false);
-                jTextArea.setVisible(true);
-                paintCanvas.add(jTextArea);
-
-            }
-        });
-
         setIconButton(functionPanel, "src/images/clearIcon.png", new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
